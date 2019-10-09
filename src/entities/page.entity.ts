@@ -1,5 +1,5 @@
 import { Layout } from './layout.entity';
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, ManyToMany, Unique, JoinTable } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, ManyToMany, Unique, JoinTable, RelationId } from 'typeorm';
 import { PageCss } from './pageCss.entity';
 
 @Entity()
@@ -24,4 +24,10 @@ export class Page {
   @ManyToMany(type => PageCss, pageCss => pageCss.pages)
   @JoinTable()
   css: PageCss[];
+
+  @RelationId((page: Page) => page.css)
+  cssIds: number[];
+
+  @RelationId((page: Page) => page.layout)
+  layoutId: number;
 }
