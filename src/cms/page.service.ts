@@ -25,6 +25,14 @@ export class PageService {
     return await this.pageRepository.findOne({ where: { name: inputname}, relations: ['css'] });
   }
 
+  async findByUrl(url: string): Promise<Page> {
+    return await this.pageRepository.findOne({ where: { url: url}, relations: ['css', 'layout', 'layout.css'] });
+  }
+
+  async findById(id: number): Promise<Page> {
+    return await this.pageRepository.findOne({ where: { id: id}, relations: ['css', 'layout', 'layout.css'] });
+  }
+
   async create(pageDto: PageDto): Promise<Page> {
 
     const cssPages = await Promise.all(pageDto.cssIds.map(async (cssId) => {

@@ -11,7 +11,7 @@ export class Layout {
   @Column({ length: 128 })
   name: string;
 
-  @Column({ length: 10000 })
+  @Column({type: "text"})
   htmlContent: string;
 
   @OneToMany(type => Page, page => page.layout)

@@ -11,7 +11,7 @@ export class Page {
   @Column({ length: 128 })
   name: string;
 
-  @Column({ length: 10000 })
+  @Column({ type: "text" })
   htmlContent: string;
 
   @Column({ length: 64 })

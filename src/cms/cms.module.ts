@@ -19,5 +19,10 @@ import { LayoutService } from './layout.service';
             AuthModule],
   controllers: [CssController, PageController, LayoutController],
   providers: [CssService, PageService, LayoutService],
+  exports:[
+    CssService,
+    PageService,
+    LayoutService
+  ]
 })
 export class CmsModule {}

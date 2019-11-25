@@ -23,6 +23,11 @@ export class PageController {
         return await this.pageService.findByName(name);
     }
 
+    @Get('get/id/:id')
+    async findById(@Param('id') id: number): Promise<Page> {
+        return await this.pageService.findById(id);
+    }
+
     @Post('create')
     async create(@Body() pageDto: PageDto): Promise<Page> {
         return await this.pageService.create(pageDto);

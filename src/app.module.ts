@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CmsModule } from './cms/cms.module';
 import { Page } from './entities/page.entity';
+import { SiteModule } from './site/site.module';
 
 @Module({
   imports: [
@@ -25,11 +26,10 @@ import { Page } from './entities/page.entity';
         insecureAuth: true,
       },
     }),
-    TypeOrmModule.forFeature([Layout]),
-    TypeOrmModule.forFeature([Page]),
     AuthModule,
     UsersModule,
     CmsModule,
+    SiteModule
   ],
   controllers: [AppController],
   providers: [AppService],
