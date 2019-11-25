@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, ManyToMany, OneToMany, Unique, JoinTable } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, ManyToMany, OneToMany, Unique, JoinTable, RelationId } from 'typeorm';
 import { PageCss } from './pageCss.entity';
 import { Page } from './page.entity';
 
@@ -21,4 +21,7 @@ export class Layout {
   @ManyToMany(type => PageCss, pageCss => pageCss.Layouts)
   @JoinTable()
   css: PageCss[];
+
+  @RelationId((layout: Layout) => layout.css)
+  cssIds: number[];
 }
