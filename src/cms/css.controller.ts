@@ -23,6 +23,11 @@ export class CssController {
         return await this.cssService.findByName(name);
     }
 
+    @Get('get/id/:id')
+    async findById(@Param('id') id: number): Promise<PageCss> {
+        return await this.cssService.findById(id);
+    }
+
     @Post('create')
     async create(@Body() cssDto: CssDto): Promise<PageCss> {
         return await this.cssService.create(cssDto);

@@ -19,6 +19,10 @@ export class CssService {
     return await this.cssRepository.findOne({ where: { name: inputname} });
   }
 
+  async findById(inputid: number): Promise<PageCss> {
+    return await this.cssRepository.findOne({ where: { id: inputid} });
+  }
+
   async create(cssDto: CssDto): Promise<PageCss> {
     return await this.cssRepository.save(cssDto);
   }

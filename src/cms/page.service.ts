@@ -22,7 +22,7 @@ export class PageService {
   }
 
   async findByName(inputname: string): Promise<Page> {
-    return await this.pageRepository.findOne({ where: { name: inputname}, relations: ['css'] });
+    return await this.pageRepository.findOne({ where: { name: inputname}});
   }
 
   async findByUrl(url: string): Promise<Page> {

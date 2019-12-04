@@ -23,6 +23,11 @@ export class LayoutController {
         return await this.layoutService.findByName(name);
     }
 
+    @Get('get/id/:id')
+    async findById(@Param('id') id: number): Promise<Layout> {
+        return await this.layoutService.findById(id);
+    }
+
     @Post('create')
     async create(@Body() layoutDto: LayoutDto): Promise<Layout> {
         return await this.layoutService.create(layoutDto);

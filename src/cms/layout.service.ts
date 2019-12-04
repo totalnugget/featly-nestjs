@@ -22,13 +22,21 @@ export class LayoutService {
     return await this.layoutRepository.findOne({ where: { name: inputname}, relations: ['css'] });
   }
 
+  async findById(inputid: number): Promise<Layout> {
+    return await this.layoutRepository.findOne({ where: { id: inputid}, relations: ['css'] });
+  }
+
   async create(layoutDto: LayoutDto): Promise<Layout> {
 
     const cssPages = await Promise.all(layoutDto.cssIds.map(async (cssId) => {
       return await this.cssRepository.findOne({where: {id: cssId}});
     }));
 
+    if(!layoutDto.htmlContent) layoutDto.htmlContent = "";
+
     const { cssIds, ...layout } = {...layoutDto , cssPages};
+
+    
 
     return await this.layoutRepository.save(layout);
   }
@@ -36,12 +44,17 @@ export class LayoutService {
   async update(id: number, layoutDto: LayoutDto): Promise<Layout> {
 
     const newLayout: Layout = await this.layoutRepository.findOne({where: { id}});
-    newLayout.css = await Promise.all(layoutDto.cssIds.map(async (cssId) => {
+    
+    if(layoutDto.cssIds)
+    {
+      newLayout.css = await Promise.all(layoutDto.cssIds.map(async (cssId) => {
       return await this.cssRepository.findOne({where: {id: cssId}});
-    }));
+      }));
+    }
+    
 
-    newLayout.htmlContent = layoutDto.htmlContent;
-    newLayout.name = layoutDto.name;
+    if(layoutDto.htmlContent) newLayout.htmlContent = layoutDto.htmlContent;
+    if(newLayout.name) newLayout.name = layoutDto.name;
 
     return await this.layoutRepository.save(newLayout);
   }
