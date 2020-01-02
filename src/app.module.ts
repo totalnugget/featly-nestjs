@@ -27,6 +27,7 @@ import { ConfigModule } from '@nestjs/config';
       extra: {
         insecureAuth: true,
       },
+      options:{encrypt: true},
     }),
     AuthModule,
     UsersModule,

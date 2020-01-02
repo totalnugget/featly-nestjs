@@ -12,7 +12,7 @@ export class PageCss {
   @Column({ length: 128 })
   name: string;
 
-  @Column({ length: 10000 })
+  @Column({ type: "text" })
   content: string;
 
   @ManyToMany(type => Layout, layout => layout.css)
