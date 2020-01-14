@@ -6,6 +6,7 @@ import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { CssController } from './css.controller';
 import { CssService } from './css.service';
 import { PageCss } from './../entities/pageCss.entity';
+import { User } from './../entities/user.entity';
 
 describe('AppController', () => {
   let appController: CssController;
@@ -20,8 +21,9 @@ describe('AppController', () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [AuthModule],
       controllers: [CssController],
-      providers: [CssService],
-    }).overrideProvider(getRepositoryToken(PageCss)).useFactory({factory: repositoryMockFactory}).compile();
+      providers: [CssService, { provide: getRepositoryToken(PageCss), useFactory: repositoryMockFactory }],
+    }).overrideProvider(getRepositoryToken(User)).useFactory({factory: repositoryMockFactory})
+    .compile();
 
     appController = app.get<CssController>(CssController);
   });
