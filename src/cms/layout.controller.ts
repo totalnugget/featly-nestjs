@@ -8,6 +8,7 @@ import { Layout } from '../entities/layout.entity';
 import { LayoutDto } from './interface/layout.dto';
 
 @Controller('layout')
+@UseGuards(AuthGuard('jwt'))
 export class LayoutController {
     constructor(private readonly authService: AuthService,
                 private readonly layoutService: LayoutService,

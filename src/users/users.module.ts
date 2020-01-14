@@ -3,9 +3,12 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User } from '../entities/user.entity';
+import * as bcrypt from 'bcrypt'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+],
   providers: [UsersService],
   controllers: [UsersController],
   exports: [UsersService],

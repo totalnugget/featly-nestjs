@@ -11,7 +11,6 @@
 on:
   push:
     branches:
-      - production
 
 env:
   AZURE_WEBAPP_NAME: featly-api    # set this to your application's name

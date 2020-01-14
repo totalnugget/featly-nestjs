@@ -6,7 +6,9 @@ import { PageCss } from '../entities/pageCss.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { debug, debuglog } from 'util';
 import { CssDto } from './interface/css.dto';
+import { JwtStrategy } from 'src/auth/jwt.strategy';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('css')
 export class CssController {
     constructor(private readonly authService: AuthService,

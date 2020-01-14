@@ -34,29 +34,30 @@ export class PageService {
   }
 
   async create(pageDto: PageDto): Promise<Page> {
-
+    
     const cssPages = await Promise.all(pageDto.cssIds.map(async (cssId) => {
       return await this.cssRepository.findOne({where: {id: cssId}});
     }));
 
-    const layoutPage: Layout = await this.layoutRepository.findOne({where: {id: pageDto.layoutId}});
+    const layout: Layout = await this.layoutRepository.findOne({where: {id: pageDto.layoutId}});
+    //TODO: use layout id
+    const { layoutId, cssIds, ...page } = {...pageDto , layout, cssPages};
 
-    const { layoutId, cssIds, ...page } = {...pageDto , layoutPage, cssPages};
-
+    if(!pageDto.htmlContent) page.htmlContent = "<p>" + page.name + "works </p>";
     return await this.pageRepository.save(page);
   }
 
   async update(id: number, pageDto: PageDto): Promise<Page> {
 
     const newPage: Page = await this.pageRepository.findOne({where: { id}});
-    newPage.css = await Promise.all(pageDto.cssIds.map(async (cssId) => {
+    if(pageDto.cssIds) newPage.css = await Promise.all(pageDto.cssIds.map(async (cssId) => {
       return await this.cssRepository.findOne({where: {id: cssId}});
     }));
 
-    newPage.htmlContent = pageDto.htmlContent;
-    newPage.layout = await this.layoutRepository.findOne({where: {id: pageDto.layoutId}});
-    newPage.name = pageDto.name;
-    newPage.url = pageDto.url;
+    if(pageDto.htmlContent) newPage.htmlContent = pageDto.htmlContent;
+    if(pageDto.layoutId) newPage.layout = await this.layoutRepository.findOne({where: {id: pageDto.layoutId}});
+    if(pageDto.name) newPage.name = pageDto.name;
+    if(pageDto.url) newPage.url = pageDto.url;
 
     return await this.pageRepository.save(newPage);
 

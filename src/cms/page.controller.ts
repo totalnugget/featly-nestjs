@@ -8,6 +8,7 @@ import { PageService } from './page.service';
 import { PageDto } from './interface/page.dto';
 
 @Controller('page')
+@UseGuards(AuthGuard('jwt'))
 export class PageController {
     constructor(private readonly authService: AuthService,
                 private readonly pageService: PageService,

@@ -46,7 +46,7 @@ export class SiteController {
             html = [html.slice(0, pos),"<style>", csspage.content,"</style>", html.slice(pos)].join('');
         });
 
-        html = html.replace("<router-outlet>", page.htmlContent)
+        html = html.replace("<router-outlet/>", page.htmlContent)
 
         return html
     }
